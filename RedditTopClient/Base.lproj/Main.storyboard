@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1421" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1421" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zAA-YW-ehy">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--Top Reddit List View-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="TopRedditListView" customModule="RedditTopClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TopRedditListView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="TopRedditListView" customModule="RedditTopClient" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="87" sectionHeaderHeight="28" sectionFooterHeight="28" id="8Cs-sz-7ey">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -38,6 +38,7 @@
                                                     </constraints>
                                                     <connections>
                                                         <action selector="clicked:" destination="ydy-sD-gT2" eventType="touchUpInside" id="4GI-Zf-xwl"/>
+                                                        <segue destination="Nbw-PF-9Vq" kind="show" identifier="ShowLink" id="Q4j-G6-Ibn"/>
                                                     </connections>
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aBP-g3-a5K">
@@ -130,10 +131,63 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
+                    <navigationItem key="navigationItem" id="Nuo-fd-nYt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-513" y="-1112"/>
+            <point key="canvasLocation" x="-897" y="-1657"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="VS7-8D-a1A">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nbw-PF-9Vq" customClass="WebViewController" customModule="RedditTopClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hpI-yM-wsx"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bzy-86-ccq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sz0-nA-JzY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" paginationMode="leftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="jBX-ao-eA9">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="jBX-ao-eA9" secondAttribute="trailing" id="Sno-0O-h1p"/>
+                            <constraint firstItem="jBX-ao-eA9" firstAttribute="leading" secondItem="Sz0-nA-JzY" secondAttribute="leading" id="U1G-YE-8QE"/>
+                            <constraint firstItem="jBX-ao-eA9" firstAttribute="top" secondItem="Sz0-nA-JzY" secondAttribute="top" id="dTw-XB-onT"/>
+                            <constraint firstItem="Bzy-86-ccq" firstAttribute="top" secondItem="jBX-ao-eA9" secondAttribute="bottom" id="vsx-kQ-e0v"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="jBX-ao-eA9" id="nKT-7w-MRC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="90I-z3-R6H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-138.40000000000001" y="-1495.5022488755624"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="78h-TP-8cq">
+            <objects>
+                <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zAA-YW-ehy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qoi-au-cyo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="1Mc-SP-HvD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ijs-Ow-ljz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1631.2" y="-1524.2878560719641"/>
         </scene>
     </scenes>
 </document>

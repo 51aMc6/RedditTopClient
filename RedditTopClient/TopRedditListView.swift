@@ -31,78 +31,90 @@ class TopRedditListView : UITableViewController {
     var myData = [[String:Any]]()
     var afterPage = String()
     var domainUrl = "https://www.reddit.com/top.json?count=25&after="
+    var itemLink : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        let inset = UIEdgeInsetsMake(statusBarHeight, 0, 0, 0)
-        tableView.contentInset = inset
-        tableView.scrollIndicatorInsets = inset
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(buttonClickedNotification),
                                                name: Notification.Name("notificationID"),
-                                               object: nil)
+                                               object: nil
+        )
+        fetchRedditTopData(nextPage: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchRedditTopData(nextPage: nil)
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     func buttonClickedNotification(_ note : Notification!) {
-        
         if let urlStr = note.object {
-            let optionMenue = UIAlertController (title: nil,
-                                                 message: "Choose option",
-                                                 preferredStyle: .actionSheet
-            )
-            let viewImageAction = UIAlertAction(title: "View it", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-                UIApplication.shared.open(URL(string: urlStr as! String)!, options: [:], completionHandler: nil)
-            })
-            let cancelAct = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            optionMenue.addAction(viewImageAction)
-            if (urlStr as! String).isImage() {
-                let saveAction = UIAlertAction(title: "Save Image to gallery", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-                    let data = NSData(contentsOf: URL(string: urlStr as! String)!)
-                    let myImage = UIImage.init(data: data as! Data)
-                    UIImageWriteToSavedPhotosAlbum(myImage!, nil, nil, nil)
-                })
+            itemLink = urlStr as? String
+        }
+ //        if let urlStr = note.object {
+//            let optionMenue = UIAlertController (title: nil,
+//                                                 message: "Choose option",
+//                                                 preferredStyle: .actionSheet
+//            )
+//            let viewImageAction = UIAlertAction(title: "View it", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+////                UIApplication.shared.open(URL(string: urlStr as! String)!, options: [:], completionHandler: nil)
+//            })
+//            let cancelAct = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//            optionMenue.addAction(viewImageAction)
+//            if (urlStr as! String).isImage() {
+//                let saveAction = UIAlertAction(title: "Save Image to gallery", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+//                    let data = NSData(contentsOf: URL(string: urlStr as! String)!)
+//                    let myImage = UIImage.init(data: data as! Data)
+//                    UIImageWriteToSavedPhotosAlbum(myImage!, nil, nil, nil)
+//                })
+//
+//                optionMenue.addAction(saveAction)
+//            }
+//            optionMenue.addAction(cancelAct)
+//            self.present(optionMenue, animated: true, completion: nil)
+//        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowLink" {
+            let webView = segue.destination as! WebViewController
+            webView.webUrlStr = itemLink
 
-                optionMenue.addAction(saveAction)
-            }
-            optionMenue.addAction(cancelAct)
-            self.present(optionMenue, animated: true, completion: nil)
         }
     }
     
+    
     func fetchRedditTopData(nextPage: String?) {
-        let url = URL(string: domainUrl+(nextPage ?? ""))
-        let task = URLSession.shared.dataTask(with: url!, completionHandler: { (data, respond, error) in
-            let data = data
-            let error = error
-            if error == nil && data != nil {
-                do {
-                    if let theJson = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any] {
-                        let branches = theJson["data"] as? [String:Any]
-                        if let childData = branches?["children"] as? [[String:Any]], let afterString = branches?["after"] as? String {
-                            
-                            DispatchQueue.main.async {
-                                if self.myData.isEmpty {
-                                    self.myData = childData
-                                    self.afterPage = afterString
-                                } else {
-                                    self.myData += childData
+        if self.myData.count < 50 {
+            let url = URL(string: domainUrl+(nextPage ?? ""))
+            let task = URLSession.shared.dataTask(with: url!, completionHandler: { (data, respond, error) in
+                let data = data
+                let error = error
+                if error == nil && data != nil {
+                    do {
+                        if let theJson = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any] {
+                            let branches = theJson["data"] as? [String:Any]
+                            if let childData = branches?["children"] as? [[String:Any]], let afterString = branches?["after"] as? String {
+                    
+                                DispatchQueue.main.async {
+                                    if self.myData.isEmpty {
+                                        self.myData = childData
+                                        self.afterPage = afterString
+                                    } else {
+                                        self.myData += childData
+                                    }
+                                    self.tableView.reloadData()
                                 }
-                                self.tableView.reloadData()
                             }
                         }
+                    } catch {
+                        print(error.localizedDescription)
                     }
-                } catch {
-                    print(error.localizedDescription)
                 }
-            }
-        })
-        task.resume()
+            })
+            task.resume()
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -157,5 +169,13 @@ class TopRedditListView : UITableViewController {
         dateCompFormatter.unitsStyle = .full
         dateCompFormatter.maximumUnitCount = 1
         return dateCompFormatter.string(from: utcDate, to: Date())!
+    }
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
     }
 }

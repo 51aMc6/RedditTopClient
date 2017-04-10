@@ -13,6 +13,7 @@
 		823740A51E969A51006695D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 823740A31E969A51006695D6 /* LaunchScreen.storyboard */; };
 		823740AD1E969CF4006695D6 /* TopRedditListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823740AC1E969CF4006695D6 /* TopRedditListView.swift */; };
 		823740AF1E96A78C006695D6 /* RedditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823740AE1E96A78C006695D6 /* RedditTableViewCell.swift */; };
+		823740B11E9BBBFF006695D6 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823740B01E9BBBFF006695D6 /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		823740A61E969A51006695D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		823740AC1E969CF4006695D6 /* TopRedditListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopRedditListView.swift; sourceTree = "<group>"; };
 		823740AE1E96A78C006695D6 /* RedditTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditTableViewCell.swift; sourceTree = "<group>"; };
+		823740B01E9BBBFF006695D6 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				8237409A1E969A51006695D6 /* AppDelegate.swift */,
 				823740AC1E969CF4006695D6 /* TopRedditListView.swift */,
+				823740B01E9BBBFF006695D6 /* WebViewController.swift */,
 				823740AE1E96A78C006695D6 /* RedditTableViewCell.swift */,
 				8237409E1E969A51006695D6 /* Main.storyboard */,
 				823740A11E969A51006695D6 /* Assets.xcassets */,
@@ -143,6 +146,7 @@
 				823740AD1E969CF4006695D6 /* TopRedditListView.swift in Sources */,
 				8237409B1E969A51006695D6 /* AppDelegate.swift in Sources */,
 				823740AF1E96A78C006695D6 /* RedditTableViewCell.swift in Sources */,
+				823740B11E9BBBFF006695D6 /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +273,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = CMacDz9.RedditTopClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -282,6 +287,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = CMacDz9.RedditTopClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -304,6 +310,7 @@
 				823740AB1E969A51006695D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
