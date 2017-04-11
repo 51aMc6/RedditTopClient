@@ -67,7 +67,6 @@ class WebViewController: UIViewController {
     }
     
     override func encodeRestorableState(with coder: NSCoder) {
-//        coder.encode(self.webUrlStr, forKey: "urlString")
         coder.encode(self.webUrlStr, forKey: "urlString")
         super.encodeRestorableState(with: coder)
     }

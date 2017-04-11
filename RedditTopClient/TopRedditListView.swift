@@ -52,28 +52,6 @@ class TopRedditListView : UITableViewController {
         if let urlStr = note.object {
             itemLink = urlStr as? String
         }
- //        if let urlStr = note.object {
-//            let optionMenue = UIAlertController (title: nil,
-//                                                 message: "Choose option",
-//                                                 preferredStyle: .actionSheet
-//            )
-//            let viewImageAction = UIAlertAction(title: "View it", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-////                UIApplication.shared.open(URL(string: urlStr as! String)!, options: [:], completionHandler: nil)
-//            })
-//            let cancelAct = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//            optionMenue.addAction(viewImageAction)
-//            if (urlStr as! String).isImage() {
-//                let saveAction = UIAlertAction(title: "Save Image to gallery", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-//                    let data = NSData(contentsOf: URL(string: urlStr as! String)!)
-//                    let myImage = UIImage.init(data: data as! Data)
-//                    UIImageWriteToSavedPhotosAlbum(myImage!, nil, nil, nil)
-//                })
-//
-//                optionMenue.addAction(saveAction)
-//            }
-//            optionMenue.addAction(cancelAct)
-//            self.present(optionMenue, animated: true, completion: nil)
-//        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -172,6 +150,7 @@ class TopRedditListView : UITableViewController {
     }
     
     override func encodeRestorableState(with coder: NSCoder) {
+//        didn't restore any data, willing to fetch new data for table
         super.encodeRestorableState(with: coder)
     }
     

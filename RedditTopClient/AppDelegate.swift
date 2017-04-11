@@ -15,9 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//        let navController = window!.rootViewController as! UINavigationController
-//        let topRedditView = navController.topViewController as! TopRedditListView
-//        navController.navigationBar.isHidden = true
         // Override point for customization after application launch.
         return true
     }
